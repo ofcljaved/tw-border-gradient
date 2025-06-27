@@ -1,0 +1,17 @@
+@utility border-background-* {
+  --tw-border-background: var(--value(--color-*, [color]));
+}
+
+@utility bg-mask-* {
+  --tw-border-mask: --value(--color-*, [color]);
+}
+
+@utility bg-border-* {
+  background: linear-gradient(--value([*]),
+      var(--tw-border-mask, var(--background)),
+      var(--background)) padding-box,
+    linear-gradient(--value([*]),
+      var(--tw-gradient-from) var(--tw-gradient-from-position),
+      var(--tw-gradient-via) var(--tw-gradient-via-position),
+      var(--tw-gradient-to) var(--tw-gradient-to-position)) border-box;
+}
