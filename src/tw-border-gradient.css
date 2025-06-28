@@ -1,17 +1,67 @@
-@utility border-background-* {
-  --tw-border-background: var(--value(--color-*, [color]));
+@property --tw-border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
 }
 
-@utility bg-mask-* {
+@theme {
+  --animate-border-rotate: rotation var(--tw-animation-duration, var(--tw-duration, 10s)) var(--tw-ease, linear) var(--tw-animation-delay, 0s) infinite;
+
+  @keyframes rotation {
+    0% {
+      --tw-border-angle: 0deg;
+    }
+
+    100% {
+      --tw-border-angle: 360deg;
+    }
+  }
+
+}
+
+@theme inline {
+  --border-angle-0: 0deg;
+  --border-angle-45: 45deg;
+  --border-angle-90: 90deg;
+  --border-angle-135: 135deg;
+  --border-angle-180: 180deg;
+  --border-angle-225: 225deg;
+  --border-angle-270: 270deg;
+  --border-angle-315: 315deg;
+  --border-angle-360: 360deg;
+}
+
+:root {
+  --tw-border-background: var(--background);
+}
+
+.dark {
+  --tw-border-background: var(--background);
+}
+
+@utility border-background-* {
+  --tw-border-background: --value(--color-*, [color]);
+}
+
+@utility mask-border-* {
   --tw-border-mask: --value(--color-*, [color]);
 }
 
 @utility bg-border-* {
-  background: linear-gradient(--value([*]),
-      var(--tw-border-mask, var(--background)),
-      var(--background)) padding-box,
-    linear-gradient(--value([*]),
+  --tw-border-angle: --value(--border-angle-*, [angle], [*]);
+  background:
+    linear-gradient(var(--tw-border-angle),
+      var(--tw-border-mask, var(--tw-border-background)),
+      var(--tw-border-background)) padding-box,
+    linear-gradient(var(--tw-border-angle),
       var(--tw-gradient-from) var(--tw-gradient-from-position),
       var(--tw-gradient-via) var(--tw-gradient-via-position),
       var(--tw-gradient-to) var(--tw-gradient-to-position)) border-box;
+}
+
+@utility delay-* {
+  animation-delay: calc(--value(number) * 1ms);
+  animation-delay: --value(--animation-delay- *, [duration], "initial", [ *]);
+  --tw-animation-delay: calc(--value(number) * 1ms);
+  --tw-animation-delay: --value(--animation-delay- *, [duration], "initial", [ *]);
 }
